@@ -37,12 +37,14 @@ public class Proxy {
 	public List<Rota> calcularRota(){
 		List<Lixeira> lixeiras = buscarLixeira();
 		List<String> pontosLixeira = new ArrayList<>();
+		List<String> pontosAlterarStatusColeta = new ArrayList<>();
 		pontosLixeira.add("-3.765529,-38.637767");
 		pontosLixeira.add("-3.720905,-38.510949");
 
 		for(Lixeira lixeira : lixeiras){
 			if(lixeira.getStatusCapacidade().equals(Lixeira.StatusCapacidade.CHEIA)){
 				pontosLixeira.add(lixeira.getLocalizacao());
+				pontosAlterarStatusColeta.add(String.valueOf(lixeira.getId()));
 			}
 		}
 		
@@ -52,6 +54,7 @@ public class Proxy {
 		List<Rota> listaRota;
 		try {
 			listaRota = ListaRota.parseFrom(doOperations(mensagem)).getRotaList();
+			alterarStatusColeta("0", pontosAlterarStatusColeta);
 			return listaRota;
 		} catch (InvalidProtocolBufferException e) {
 			e.printStackTrace();
@@ -69,6 +72,17 @@ public class Proxy {
 		return Double.valueOf(distancia);
 	}
 	
+	public void alterarStatusColeta(String status,List<String> arguments){
+		List<String> pontosAlterarStatus = new ArrayList<>();
+		pontosAlterarStatus.add(status);
+		for(String l : arguments){
+			pontosAlterarStatus.add(l);
+		}
+		
+		Mensagem mensagem = empacotar("Lixeira", "atualizarStatusColeta",pontosAlterarStatus);
+		doOperations(mensagem);
+	}
+	
 	public byte[] doOperations(Mensagem mensagem){
 		try {
 			this.cliente = new TCPClienteBuilder().serverHost("127.0.0.1").serverPort(2055).build();
@@ -76,7 +90,6 @@ public class Proxy {
 			System.out.println(mensagem.toString());
 			return cliente.getResponse();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

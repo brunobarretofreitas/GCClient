@@ -11,9 +11,16 @@ public class ColetaService {
 
 	@Autowired
 	ColetaRepository coletaRepository;
-	
-	public void salvar(ColetaEntity coleta){
+
+	public void salvar(ColetaEntity coleta) {
 		this.coletaRepository.save(coleta);
 	}
+
+	public ColetaEntity buscarColeta(Long id) {
+		return this.coletaRepository.findOne(id);
+	}
 	
+	public void deletarColeta(ColetaEntity coleta){
+		this.coletaRepository.delete(coleta);
+	}
 }

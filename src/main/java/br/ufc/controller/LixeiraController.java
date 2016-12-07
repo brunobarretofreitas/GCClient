@@ -1,6 +1,5 @@
 package br.ufc.controller;
 
-import java.net.Authenticator.RequestorType;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
