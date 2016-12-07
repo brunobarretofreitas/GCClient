@@ -1,0 +1,12 @@
+<html>
+
+<body>
+	<form method="post" action="/calcularDistancia">
+		<input type="text" name="origem"/>
+		<input type="text" name="destino"/>
+		<input type="submit" name="Enviar"/>
+	</form>
+	<p th:if="${distancia}" th:text="${distancia} + ' Km'"></p>
+</body>
+
+</html>

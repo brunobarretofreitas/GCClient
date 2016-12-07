@@ -1,0 +1,19 @@
+<html>
+<body>
+	<table style="width: 100%">
+		<tr>
+			<th>id</th>
+			<th>Localização</th>
+		</tr>
+		<tr th:each="${lixeira : lixeiras}">
+			<td th:text="${lixeira.id}"></td>
+			<td th:text="${lixeira.localizacao}"></td>
+		</tr>
+		<tr>
+			<td>Eve</td>
+			<td>Jackson</td>
+		</tr>
+	</table>
+
+</body>
+</html>

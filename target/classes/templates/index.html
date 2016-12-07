@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Jornal o Gordo</title>
+
+  <!-- CSS  -->
+  <link th:href="@{/webjars/font-awesome/4.6.3/css/font-awesome.min.css}" rel="stylesheet"/>
+  <link th:href="@{/webjars/materialize/0.97.6/bin/materialize.css}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  </head>
+<body>
+
+  <nav class=" light-blue darken-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo center">Jornal o Gordo</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a class="modal-trigger" href="#modal1">Login</a></li>
+        <li><a th:href="@{/pessoa/leitor/add}">Cadastre-se</a></li>
+        <li><a th:href="@{/classificado/}">Classificados</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="#">Navbar Link</a></li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+
+  <!-- Modal Trigger -->
+
+  <!-- Modal do Login -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h5 class="center">Login</h5>
+      <div class="row">
+        <div class="col s12 m12">
+          <form class="col s12" th:action="@{/login}" method="POST">
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="login" type="text" class="validate" name="login" />
+                <label for="login">Login</label>
+              </div>
+            </div>
+            <div class="row">
+            	<div class="input-field col s12">
+				    <select name="papel" >
+				      <option value="0">Leitor</option>
+				      <option value="1">Editor</option>
+				      <option value="2">Jornalista</option>
+				    </select>
+				    <label>Selecione o Papel</label>
+				</div>        
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="password" type="password" class="validate" name="senha" />
+                <label for="password">Senha</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <button class="btn waves-effect waves-light center" type="submit" name="action">Login
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="container">
+    <div class="section">
+      <!--   Icon Section   -->
+      <div class="row">
+
+        <div class="col s12 m6">
+          <img src="https://upload.wikimedia.org/wikipedia/pt/c/c2/Peter_Griffin.png"/>
+        </div>
+        <br/>
+        <div class="col s12 m6" th:if="${not #lists.isEmpty(listasecao)}">
+		
+          <ul class="collection with-header">
+          	<li class="collection-header"><h4>Seções</h4></li>
+          	<ul class="collection" th:each="secao : ${listasecao}">
+          		<li><a th:href="@{'/secao/' + ${secao.id}}" class="collection-item" th:text="${secao.titulo}"></a></li>		
+          	</ul>
+          </ul>
+        </div>
+      </div>
+      <br/>
+      <br/>
+
+      <div class="section">
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="page-footer orange">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Entre em contato conosco</h5>
+          <ul>
+            <li><a class="white-text" href="https://www.facebook.com/jacques.nier">Facebook</a></li>
+            <li><a class="white-text" href="#!">jacquesnier@gmail.com</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+        Desenvolvido por <a class="orange-text text-lighten-3" href="http://github.com/jacquesnier">Jacques Nier</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.js"></script>
+	<script src="js/init.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script> 
+	<script>
+		$(document).ready(function() {
+			$('.modal-trigger').leanModal();
+		});
+		
+		$(document).ready(function() {
+		    $('select').material_select();
+		  });
+	</script>
+</body>
+</html>
