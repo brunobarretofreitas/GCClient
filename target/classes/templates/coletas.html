@@ -5,9 +5,9 @@
 			<th>Id</th>
 			<th></th>
 		</tr>
-		<tr th:each="${coleta : coletas}">
+		<tr th:each="coleta : ${coletas}">
 			<td th:text="${coleta.id}"></td>
-			<td><a th:href="@{'/coleta/concluir/' + ${coleta.id}}"></a></td>
+			<td><a th:href="@{'/coleta/concluir/' + ${coleta.id}}">Concluir Coleta</a></td>
 		</tr>
 	</table>
 

@@ -5,9 +5,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.google.protobuf.InvalidProtocolBufferException;
 
 import br.ufc.model.ColetaEntity;
 import br.ufc.model.LixeiraEntity;
@@ -29,8 +32,21 @@ public class ColetaController {
 		for(LixeiraEntity l : coleta.getLixeiras()){
 			pontosAlterarStatusColeta.add(String.valueOf(l.getId()));
 		}
-		proxy.alterarStatusColeta("1", pontosAlterarStatusColeta);
+		
+		try {
+			proxy.alterarStatusColeta("1", pontosAlterarStatusColeta);
+		} catch (InvalidProtocolBufferException e) {
+			e.printStackTrace();
+		}
+		
 		coletaService.deletarColeta(coleta);
-		return"";
+		return "coletas";
+	}
+	
+	@RequestMapping(method=RequestMethod.GET)
+	public String listarColetas(Model model){
+		List<ColetaEntity> coletas = coletaService.listar();
+		model.addAttribute("coletas", coletas);
+		return "coletas";
 	}
 }

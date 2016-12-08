@@ -1,5 +1,7 @@
 package br.ufc.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,4 +25,9 @@ public class ColetaService {
 	public void deletarColeta(ColetaEntity coleta){
 		this.coletaRepository.delete(coleta);
 	}
+	
+	public List<ColetaEntity> listar() {
+		return (List<ColetaEntity>) this.coletaRepository.findAll();
+	}
+	
 }

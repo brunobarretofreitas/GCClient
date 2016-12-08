@@ -6,6 +6,8 @@ import java.net.Socket;
 
 import org.apache.commons.io.IOUtils;
 
+import br.ufc.model.Message.Mensagem;
+
 public class GarbageCollectorCliente {
 	private String serverHost;
 	private int serverPort;
@@ -40,10 +42,9 @@ public class GarbageCollectorCliente {
 		return new TCPClienteBuilder();
 	}
 
-	public void sendRequest(String request) {
+	public void sendRequest(Mensagem mensagem) {
 		try {
-			this.out.write(request, 0, request.length());
-			this.out.flush();
+			mensagem.writeTo(this.socket.getOutputStream());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
