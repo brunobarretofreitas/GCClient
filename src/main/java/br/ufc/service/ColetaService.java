@@ -13,11 +13,13 @@ public class ColetaService {
 
 	@Autowired
 	ColetaRepository coletaRepository;
-
-	public void salvar(ColetaEntity coleta) {
+	
+	public ColetaEntity salvar(ColetaEntity coleta) {
 		this.coletaRepository.save(coleta);
+		System.out.println(coleta.getId());
+		return coleta;
 	}
-
+	
 	public ColetaEntity buscarColeta(Long id) {
 		return this.coletaRepository.findOne(id);
 	}

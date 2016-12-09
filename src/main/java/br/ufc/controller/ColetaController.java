@@ -24,17 +24,18 @@ public class ColetaController {
 	@Autowired
 	ColetaService coletaService;
 	
+	//Metodo Responsavel por Marcar como Finalizada a coleta alterando StatusColeta das lixeiras para LIVRE e o StatusCapacida para VAZIO
 	@RequestMapping(value="/concluir/{coleta}",method = RequestMethod.GET)
 	public String concluirColeta(@PathVariable("coleta") Long id){
 		Proxy proxy = new Proxy();
 		ColetaEntity coleta = coletaService.buscarColeta(id);
-		List<String> pontosAlterarStatusColeta = new ArrayList<>();
+		List<String> pontosAlterarStatus = new ArrayList<>();
 		for(LixeiraEntity l : coleta.getLixeiras()){
-			pontosAlterarStatusColeta.add(String.valueOf(l.getId()));
+			pontosAlterarStatus.add(String.valueOf(l.getId()));
 		}
 		
 		try {
-			proxy.alterarStatusColeta("1", pontosAlterarStatusColeta);
+			proxy.alterarStatusColeta("1", pontosAlterarStatus);
 		} catch (InvalidProtocolBufferException e) {
 			e.printStackTrace();
 		}
@@ -43,6 +44,7 @@ public class ColetaController {
 		return "coletas";
 	}
 	
+	//Metodo Responsavel por Listar Todas As Coletas
 	@RequestMapping(method=RequestMethod.GET)
 	public String listarColetas(Model model){
 		List<ColetaEntity> coletas = coletaService.listar();
