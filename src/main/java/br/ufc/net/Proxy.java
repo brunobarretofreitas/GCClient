@@ -12,7 +12,6 @@ import com.google.protobuf.InvalidProtocolBufferException;
 
 import br.ufc.model.Lixeiras.ListaLixeira;
 import br.ufc.model.Lixeiras.Lixeira;
-import br.ufc.model.MensagemAntiga;
 import br.ufc.model.Message.Mensagem;
 import br.ufc.model.Rotas.ListaRota;
 import br.ufc.model.Rotas.Rota;
